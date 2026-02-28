@@ -9,13 +9,13 @@ interface ComparisonTableProps {
 }
 
 export function ComparisonTable({ storePrices }: ComparisonTableProps) {
-  const [redirectStore, setRedirectStore] = useState<string | null>(null);
+  const [redirectState, setRedirectState] = useState<{ store: string; url: string } | null>(null);
   
   // Find the lowest price
   const lowestPrice = Math.min(...storePrices.map(sp => sp.price));
 
-  const handleDealClick = (store: string) => {
-    setRedirectStore(store);
+  const handleDealClick = (store: string, url: string) => {
+    setRedirectState({ store, url });
   };
 
   return (
@@ -48,7 +48,10 @@ export function ComparisonTable({ storePrices }: ComparisonTableProps) {
                       <div className="flex items-center gap-3">
                         <img src={storePrice.storeLogo} alt={storePrice.store} className="h-8 w-auto object-contain" />
                         {isBestPrice && (
-                          <span className="inline-block px-2 py-0.5 bg-green-600 text-white text-xs rounded">
+                          <span
+                            className="inline-block px-2 py-0.5 text-white text-xs rounded"
+                            style={{ backgroundColor: "#16A34A" }}
+                          >
                             Best Price
                           </span>
                         )}
@@ -76,7 +79,7 @@ export function ComparisonTable({ storePrices }: ComparisonTableProps) {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <Button
-                        onClick={() => handleDealClick(storePrice.store)}
+                        onClick={() => handleDealClick(storePrice.store, storePrice.productUrl)}
                         className={`${
                           isBestPrice
                             ? "bg-primary hover:bg-primary/90"
@@ -96,8 +99,9 @@ export function ComparisonTable({ storePrices }: ComparisonTableProps) {
       </div>
 
       <RedirectModal
-        store={redirectStore}
-        onClose={() => setRedirectStore(null)}
+        store={redirectState?.store ?? null}
+        url={redirectState?.url ?? null}
+        onClose={() => setRedirectState(null)}
       />
     </>
   );

@@ -2,13 +2,13 @@
 
 :root {
   --font-size: 14px;
-  --background: #ffffff;
+  --background: #f5f7fa;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #030213;
+  --primary: #2563eb;
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.95 0.0058 264.53);
   --secondary-foreground: #030213;
@@ -186,4 +186,62 @@
 
 html {
   font-size: var(--font-size);
+}
+
+.app-shell-header {
+  left: 0;
+}
+
+.app-shell-main {
+  margin-left: 0;
+}
+
+.sidebar-desktop {
+  display: none;
+}
+
+.mobile-only {
+  display: inline-flex;
+}
+
+.mobile-drawer {
+  display: block;
+}
+
+.overlay-backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.trending-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.trending-scroll-card {
+  width: 16rem;
+  flex: 0 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .app-shell-header {
+    left: 16rem;
+  }
+
+  .app-shell-main {
+    margin-left: 16rem;
+  }
+
+  .sidebar-desktop {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  .mobile-drawer {
+    display: none;
+  }
 }

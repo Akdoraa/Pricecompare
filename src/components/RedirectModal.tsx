@@ -4,19 +4,21 @@ import { Loader2 } from "lucide-react";
 
 interface RedirectModalProps {
   store: string | null;
+  url: string | null;
   onClose: () => void;
 }
 
-export function RedirectModal({ store, onClose }: RedirectModalProps) {
+export function RedirectModal({ store, url, onClose }: RedirectModalProps) {
   useEffect(() => {
-    if (store) {
+    if (store && url) {
       const timer = setTimeout(() => {
+        window.open(url, "_blank", "noopener,noreferrer");
         onClose();
-      }, 2000);
+      }, 1200);
       
       return () => clearTimeout(timer);
     }
-  }, [store, onClose]);
+  }, [store, url, onClose]);
 
   return (
     <Dialog open={!!store} onOpenChange={onClose}>

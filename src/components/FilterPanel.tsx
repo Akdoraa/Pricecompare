@@ -6,6 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 interface FilterPanelProps {
   priceRange: [number, number];
   onPriceRangeChange: (range: [number, number]) => void;
+  selectedStores?: string[];
+  onStoreToggle?: (store: string) => void;
   inStockOnly: boolean;
   onInStockOnlyChange: (value: boolean) => void;
   freeShippingOnly: boolean;
@@ -17,6 +19,8 @@ interface FilterPanelProps {
 export function FilterPanel({
   priceRange,
   onPriceRangeChange,
+  selectedStores = [],
+  onStoreToggle,
   inStockOnly,
   onInStockOnlyChange,
   freeShippingOnly,
@@ -24,6 +28,8 @@ export function FilterPanel({
   sortBy,
   onSortChange
 }: FilterPanelProps) {
+  const stores = ["Amazon", "Walmart", "eBay", "Best Buy", "Google Shopping", "Etsy"];
+
   return (
     <div className="bg-card rounded-xl border border-border p-6 space-y-6 w-full sticky top-24">
       <div>
@@ -62,6 +68,25 @@ export function FilterPanel({
           </div>
         </div>
       </div>
+
+      {onStoreToggle && (
+        <div className="space-y-3">
+          <Label>Stores</Label>
+          <div className="space-y-2">
+            {stores.map((store) => (
+              <label key={store} className="flex items-center gap-2 text-sm cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedStores.includes(store)}
+                  onChange={() => onStoreToggle(store)}
+                  className="w-4 h-4 rounded border-border accent-primary"
+                />
+                <span>{store}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="space-y-3">
         <div className="flex items-center justify-between">
